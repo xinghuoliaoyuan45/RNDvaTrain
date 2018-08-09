@@ -5,6 +5,8 @@
 export const FETCH_HOME_NAME = 'FETCH_HOME_NAME'; // 获取home name
 export const SET_HOME_NAME = 'SET_HOME_NAME'; // 设置home name
 
+
+export const COMMON_ERROR = 'poly/App/COMMON_ERROR';
 // 登录
 export const LOGIN = 'poly/App/LOGIN';
 export const LOGIN_SUCCESS = 'poly/App/LOGIN_SUCCESS';
