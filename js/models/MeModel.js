@@ -1,5 +1,5 @@
 export default {
-    namespace: 'mine',
+    namespace: 'me ',
     state: {},
     reducers: {},
     effects: {},
