@@ -37,6 +37,9 @@ class Router extends PureComponent {
    * return: bool [true: 不返回主界面, false: 返回主界面]
    */
   backHandle = () => {
+    /**
+     * todo 在这里写判断是否android点击返回键 2秒内逻辑
+     */
     const currentScreen = getCurrentScreen(this.props.router)
     if (currentScreen === 'Login') {
       return false
@@ -59,9 +62,6 @@ function mapStateToProps(state) {
   };
 }
 export default connect(mapStateToProps)(Router)
-
-
-
 
 
 

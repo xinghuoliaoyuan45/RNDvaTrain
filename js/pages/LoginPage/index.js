@@ -19,9 +19,11 @@ import {
 import HeadStatusBar from 'js/components/HeadStatusBar';
 import {Container} from 'native-base'
 import {Toast} from 'antd-mobile';
+import {LOGIN} from '../../constants/ActionTypes'
 import {createForm} from 'rc-form';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import DeviceInfo from 'react-native-device-info';
+import {createAction} from '../../utils'
 
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
@@ -36,7 +38,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loginName: "",
+      loginName: "yingwen",
       // loginName: "13521664632",
       password: "",
       loginIndex: 1,
@@ -45,10 +47,6 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    if (Platform.OS === 'android') {
-      BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
-    }
-
     //键盘
     this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', (e) => {
       this._scrollToTarget(e);
@@ -69,19 +67,6 @@ class Login extends Component {
     }
   }
 
-  onBackAndroid = () => {
-    if (!this.props.nav) {
-      return;
-    }
-    console.log("login exitApp");
-    const routers = this.props.nav.routes;
-    if (routers instanceof Array && routers.length > 0 && routers[this.props.nav.index].routeName == "Login") {
-      BackHandler.exitApp();
-      return true;
-    }
-
-  };
-
   componentWillMount() {
     // this.startTimer = setTimeout(()=>{this.showLoginUI();},REQ_TIMEOUT);
     // InteractionManager.runAfterInteractions(() => {
@@ -93,9 +78,6 @@ class Login extends Component {
     this.keyboardDidShowListener && this.keyboardDidShowListener.remove();
     this.keyboardDidHideListener && this.keyboardDidHideListener.remove();
     Keyboard.dismiss();
-    if (Platform.OS === 'android') {
-      BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
-    }
     //Timer
     this.startTimer && clearTimeout(this.startTimer);
     this.finallyTimer && clearTimeout(this.finallyTimer);
@@ -139,7 +121,27 @@ class Login extends Component {
   //    });
   // };
 
+
+  submitForm = () => {
+    if (!this.state.loginName) {
+      Toast.info("请输入登录名", 1);
+      return;
+    }
+    if (!this.state.password) {
+      Toast.info("请输入密码", 1);
+      return;
+    }
+    this.props.dispatch()
+    this.props.login({
+      loginName: this.state.loginName,
+      password: this.state.password,
+      apptype: Platform.OS.toUpperCase(),
+      nowVersion: DeviceInfo.getVersion(),
+    });
+  }
+
   render() {
+    let dispatch = this.props.dispatch
     return (
       <Container style={{backgroundColor: colors.white}}>
         <HeadStatusBar/>
@@ -209,14 +211,18 @@ class Login extends Component {
   }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps=(state) =>{
   return {};
 }
+const mapDispatchToProps=(dispatch)=>{
+  return{
+   dispatch,
+   login:(param)=>dispatch(createAction(`global/${LOGIN}`)(param))
 
-// export default connect(
-//   mapStateToProps,
-// )(Login);
-export default connect(mapStateToProps, null)(createForm()(Login));
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(createForm()(Login));
+
 const styles = {
   formItem: {
     height: 60,

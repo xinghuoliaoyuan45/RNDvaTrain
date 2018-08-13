@@ -61,13 +61,13 @@ export default {
     }
   }),
   reducers: {
-    [SAVE_LOGIN_FORM](state, {name}) {
-      debugger
-      return state.set('loginForm', {
-        ...state.get('loginForm'),
-        ...action.payload.data
-      });
-    }
+    // [SAVE_LOGIN_FORM](state, {name}) {
+    //   debugger
+    //   return state.set('loginForm', {
+    //     ...state.get('loginForm'),
+    //     ...action.payload.data
+    //   });
+    // }
 
   },
   effects: {

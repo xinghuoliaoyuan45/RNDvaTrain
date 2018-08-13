@@ -33,6 +33,7 @@ export default {
             payload,
           })
           // debounce, see https://github.com/react-community/react-navigation/issues/271
+          // How to prevent push more than once when tapping button too fast #1158
           if (payload.type === 'Navigation/NAVIGATE') {
             yield call(delay, 500)
           }

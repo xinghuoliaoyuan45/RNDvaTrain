@@ -1,4 +1,3 @@
-import Config from 'react-native-config'
 
 /***************
  * 环境配置
