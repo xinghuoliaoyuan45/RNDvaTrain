@@ -1,15 +1,28 @@
 import React from 'react'
 import {StackNavigator} from 'react-navigation'
-import LoginPage from '../pages/LoginPage'
+import Login from '../pages/LoginPage'
 import TabRouter from './TabRouter'
 
 export default StackNavigator({
-    Login: {screen: LoginPage},
+    Login: {screen: Login},
     TabNavigation: {screen: TabRouter},
     //页面都写在这里
+
+
+
+
+
+
+
+
+
+
+
+
+
 }, {
     headerMode: 'screen',
-    navigationOptions: ({}) => {
+    navigationOptions: ({navigation}) => {
         return {
             headerBackTitle: null,
             headerTintColor: 'white',

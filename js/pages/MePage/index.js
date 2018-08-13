@@ -13,10 +13,31 @@ class MeScreen extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {};
-}
+// const mapStateToProps = (state) => {
+//   return {
+//     user: state.getIn(['global', 'user']),
+//     isLoggedIn: state.getIn(['global', 'isLoggedIn']),
+//     loginForm: state.getIn(['global', 'loginForm']),
+//   }
+// }
 
-export default connect(
-    mapStateToProps,
-)(MeScreen);
+// export function mapDispatchToProps(dispatch) {
+//   return {
+//     login: (data) => {
+//       dispatch(login(data));
+//     },
+//     logoutSuccess: (data) => {
+//       dispatch(logoutSuccess(data));
+//     },
+//     // 保存登陆表单
+//     saveLoginForm: (data)=> dispatch(saveLoginForm({data})),
+//     toggleKickModal: (payload) => {
+//       dispatch(toggleKickModal(payload));
+//     },
+//   }
+// }
+
+// export default connect(
+//     mapStateToProps,mapDispatchToProps
+// )(MeScreen);
+export default MeScreen

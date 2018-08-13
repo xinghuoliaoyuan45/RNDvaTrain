@@ -1,16 +1,33 @@
 import React from 'react';
-import dva from './Dva';
+import dva from './utils/Dva';
+import {AsyncStorage} from 'react-native'
+import {persistStore, autoRehydrate} from 'redux-persist'
+//models
+import HomeModel from './models/HomeModel';
+import MeModel from './models/MeModel';
+import RouterModel from './models/RouterModel'
 
-import Home from './models/HomeModel';
-import Me from './models/MeModel';
+
+import Router from "./router";
 
 const app = dva({
-    models: [Home, Me],
-    onError(e) {
-        console.log('onError', e);
-    },
+  initialState: {},
+  models: [HomeModel, MeModel, RouterModel],
+  extraEnhancers: [autoRehydrate()],
+  onError(e) {
+    console.log('onError', e);
+  },
 });
-
-const App = app.start();
+let store = app.getStore()
+const App = app.start(<Router store={store}/>)
+persistStore(store, {
+  storage: AsyncStorage,
+  //blacklist
+})
 
 export default App;
+
+//redux-persist react native 端本地存储指定使用AsyncStorage。
+// Android是以K-V的形式存储在本地sqlite中,iOS 是直接存沙盒文件
+//redux-persist 支持配置和黑名单。仅仅持久化白名单中的数据或者不持久化黑名单中的数据。
+//由于大部分情况下我们的state都会非常的大。强烈建议建议大家使用白名单对持久化数据做过滤。

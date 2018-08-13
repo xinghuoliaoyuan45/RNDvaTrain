@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {StatusBar,View, Platform} from 'react-native';
 import colors from 'js/themes/colors';
 import {isIphoneXStatusBar} from 'js/components/IsIponeXDept'
-var DeviceInfo = require('react-native-device-info');
+import DeviceInfo from 'react-native-device-info';
 
 export default class HeadStatusBar extends Component {
 
@@ -14,7 +14,7 @@ export default class HeadStatusBar extends Component {
                     hidden={false}
                     animated={true}
                     barStyle="default"
-                    backgroundColor={colors.appGreen}
+                    backgroundColor={colors.transparent}
                     networkActivityIndicatorVisible={false}
                 />
             </View>
