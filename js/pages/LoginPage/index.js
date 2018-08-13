@@ -39,7 +39,6 @@ class Login extends Component {
     super(props);
     this.state = {
       loginName: "yingwen",
-      // loginName: "13521664632",
       password: "",
       loginIndex: 1,
       placeViewHeight: 0,
@@ -214,10 +213,8 @@ const mapStateToProps=(state) =>{
 }
 const mapDispatchToProps=(dispatch)=> {
   return {
-    login: (param) => dispatch({
-      type: `global/${LOGIN}`,
-      payload: param
-    })
+    dispatch,
+    login: (param) => dispatch(createAction(`global/${LOGIN}`,{param})())
   }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Login);
