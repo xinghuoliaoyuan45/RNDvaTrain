@@ -30,6 +30,7 @@ const deviceWidth = Dimensions.get('window').width;
 
 const REQ_TIMEOUT = 30000;
 
+
 class Login extends Component {
 
   static propTypes = {};
@@ -130,7 +131,6 @@ class Login extends Component {
       Toast.info("请输入密码", 1);
       return;
     }
-    this.props.dispatch()
     this.props.login({
       loginName: this.state.loginName,
       password: this.state.password,
@@ -140,7 +140,6 @@ class Login extends Component {
   }
 
   render() {
-    let dispatch = this.props.dispatch
     return (
       <Container style={{backgroundColor: colors.white}}>
         <HeadStatusBar/>
