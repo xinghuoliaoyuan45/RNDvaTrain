@@ -27,7 +27,7 @@ import {
 
 } from '../constants/ActionTypes';
 import {fromJS, Map} from 'immutable';
-import API from '../config/api'
+import {API} from '../config/api'
 
 export default {
   namespace: 'global',
@@ -71,10 +71,10 @@ export default {
 
   },
   effects: {
-    * [LOGIN]({data}, {call, put, select}) {
+    * [LOGIN]({payload}, {call, put, select}) {
       //重置
       let userLoginInfo = new Object();
-      userLoginInfo.loginName = data.loginName;
+      userLoginInfo.loginName = payload.loginName;
       userLoginInfo.password = "";
       GLOBAL.storage.save({
         key: 'userLoginInfo',
@@ -82,7 +82,7 @@ export default {
       });
       const requestURL = API.login;
       const result = yield call(request, requestURL, {
-        body: data || {}
+        body: payload || {}
       });
     }
   },
