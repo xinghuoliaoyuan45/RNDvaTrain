@@ -84,8 +84,6 @@ export default {
       const result = yield call(request, requestURL, {
         body: data || {}
       });
-      debugger
-
     }
   },
 }

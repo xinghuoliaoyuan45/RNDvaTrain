@@ -20,7 +20,6 @@ import HeadStatusBar from 'js/components/HeadStatusBar';
 import {Container} from 'native-base'
 import {Toast} from 'antd-mobile';
 import {LOGIN} from '../../constants/ActionTypes'
-import {createForm} from 'rc-form';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import DeviceInfo from 'react-native-device-info';
 import {createAction} from '../../utils'
@@ -214,14 +213,15 @@ class Login extends Component {
 const mapStateToProps=(state) =>{
   return {};
 }
-const mapDispatchToProps=(dispatch)=>{
-  return{
-   dispatch,
-   login:(param)=>dispatch(createAction(`global/${LOGIN}`)(param))
-
+const mapDispatchToProps=(dispatch)=> {
+  return {
+    login: (param) => dispatch({
+      type: `global/${LOGIN}`,
+      payload: param
+    })
   }
 }
-export default connect(mapStateToProps,mapDispatchToProps)(createForm()(Login));
+export default connect(mapStateToProps,mapDispatchToProps)(Login);
 
 const styles = {
   formItem: {
@@ -252,4 +252,4 @@ const styles = {
     paddingLeft: 5,
     paddingRight: 10
   },
-};
+}
