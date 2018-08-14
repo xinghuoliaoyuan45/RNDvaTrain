@@ -60,8 +60,8 @@ class Login extends Component {
     let height = event.endCoordinates.screenY
     if (Platform.OS === 'android') {
       this._scroll.scrollToEnd()
-     // this._scroll.scrollTo({y: height,animated: false})
-    }else{
+      // this._scroll.scrollTo({y: height,animated: false})
+    } else {
       this._scroll.scrollToEnd()
     }
   }
@@ -130,6 +130,7 @@ class Login extends Component {
       Toast.info("请输入密码", 1);
       return;
     }
+
     const { dispatch } = this.props;
 
     dispatch(createAction(`global/${LOGIN}`)({
@@ -137,8 +138,7 @@ class Login extends Component {
       password: this.state.password,
       apptype: Platform.OS.toUpperCase(),
       nowVersion: DeviceInfo.getVersion(),
-    })())
-
+    }))
   }
 
   render() {
@@ -148,61 +148,61 @@ class Login extends Component {
         <ScrollView
           ref={(scroll) => this._scroll = scroll}
           contentContainerStyle={{backgroundColor: colors.white}}>
-            <Image style={{
-              width: deviceWidth,
-              height: deviceHeight / 2 - 80,
-            }} source={require('js/assets/images/login-bg-1.png')}/>
-            <View style={{width: deviceWidth, height: 40, flexDirection: 'row'}}>
-              <View style={{flex:1}}>
+          <Image style={{
+            width: deviceWidth,
+            height: deviceHeight / 2 - 80,
+          }} source={require('js/assets/images/login-bg-1.png')}/>
+          <View style={{width: deviceWidth, height: 40, flexDirection: 'row'}}>
+            <View style={{flex: 1}}>
               <Image style={{alignSelf: 'center', width: 20, height: 10}}
                      source={require('js/assets/images/login-arrow-left.png')}/>
-              </View>
-              <View style={{flex:1}}/>
             </View>
-            <View>
-              <View style={styles.formItem}>
-                <View style={{flex: 1, flexDirection: 'row'}}>
-                  <MCIcon name={'account-outline'} size={22} color={colors.primaryLight2} style={styles.loginIcon}/>
-                  <TextInput underlineColorAndroid="transparent" autoCapitalize={"none"}
-                             ref={"name"} style={{...styles.textInputStyles, flex: 1}} placeholder="用户名/手机号"
-                             placeholderTextColor={colors.textLight}
-                             maxLength={30}
-                             defaultValue={this.state.loginName}
-                             onChangeText={(text) => {
-                               this.setState({loginName: text});
-                             }}/>
-                </View>
-                <View style={{height: 1, backgroundColor: colors.lightBorderColor}}/>
+            <View style={{flex: 1}}/>
+          </View>
+          <View>
+            <View style={styles.formItem}>
+              <View style={{flex: 1, flexDirection: 'row'}}>
+                <MCIcon name={'account-outline'} size={22} color={colors.primaryLight2} style={styles.loginIcon}/>
+                <TextInput underlineColorAndroid="transparent" autoCapitalize={"none"}
+                           ref={"name"} style={{...styles.textInputStyles, flex: 1}} placeholder="用户名/手机号"
+                           placeholderTextColor={colors.textLight}
+                           maxLength={30}
+                           defaultValue={this.state.loginName}
+                           onChangeText={(text) => {
+                             this.setState({loginName: text});
+                           }}/>
               </View>
-              <View style={styles.formItem}>
-                <View style={{flex: 1, flexDirection: 'row'}}>
-                  <MCIcon name={'lock-outline'} size={20} color={colors.primaryLight2} style={styles.loginIcon}/>
-                  <TextInput underlineColorAndroid="transparent" autoCapitalize={"none"}
-                             ref={"password"} style={{...styles.textInputStyles, flex: 1}} placeholder="密码"
-                             placeholderTextColor={colors.textLight}
-                             maxLength={30}
-                             defaultValue={this.state.password}
-                             secureTextEntry={true}
-                             onChangeText={(text) => this.setState({password: text})}
-                  />
-                </View>
-                <View style={{height: 1, backgroundColor: colors.lightBorderColor}}/>
+              <View style={{height: 1, backgroundColor: colors.lightBorderColor}}/>
+            </View>
+            <View style={styles.formItem}>
+              <View style={{flex: 1, flexDirection: 'row'}}>
+                <MCIcon name={'lock-outline'} size={20} color={colors.primaryLight2} style={styles.loginIcon}/>
+                <TextInput underlineColorAndroid="transparent" autoCapitalize={"none"}
+                           ref={"password"} style={{...styles.textInputStyles, flex: 1}} placeholder="密码"
+                           placeholderTextColor={colors.textLight}
+                           maxLength={30}
+                           defaultValue={this.state.password}
+                           secureTextEntry={true}
+                           onChangeText={(text) => this.setState({password: text})}
+                />
               </View>
-              <TouchableOpacity onPress={()=>{this.submitForm}}>
-                <View
-                  style={{...styles.loginButton}}>
-                  <Text style={{fontSize: 20, color: colors.white}}>{"登录"}</Text>
-                </View>
-              </TouchableOpacity>
+              <View style={{height: 1, backgroundColor: colors.lightBorderColor}}/>
+            </View>
+            <TouchableOpacity onPress={ this.submitForm.bind(this)}>
+              <View
+                style={{...styles.loginButton}}>
+                <Text style={{fontSize: 20, color: colors.white}}>{"登录"}</Text>
+              </View>
+            </TouchableOpacity>
 
-              <TouchableOpacity onPress={() => {
-                this.props.navigation.navigate("FindPassWord")
-              }}>
-                <View style={{alignItems: "center", justifyContent: "center", marginTop: 20}}>
-                  <Text style={{fontSize: 15, color: colors.placeHolderTextColor}}>{"忘记密码?"}</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity onPress={() => {
+              this.props.navigation.navigate("FindPassWord")
+            }}>
+              <View style={{alignItems: "center", justifyContent: "center", marginTop: 20}}>
+                <Text style={{fontSize: 15, color: colors.placeHolderTextColor}}>{"忘记密码?"}</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
           <View style={{height: 300}}/>
         </ScrollView>
 
@@ -210,17 +210,12 @@ class Login extends Component {
     );
   }
 }
-const mapStateToProps=(state) =>{
+
+const mapStateToProps = (state) => {
   return {};
 }
-const mapDispatchToProps=(dispatch)=>{
-  return{
-    dispatch,
-    login:(param)=>dispatch(createAction(`global/${LOGIN}`)(param)())
 
-  }
-}
-export default connect(mapStateToProps,mapDispatchToProps)(Login);
+export default connect(mapStateToProps)(Login);
 
 
 const styles = {

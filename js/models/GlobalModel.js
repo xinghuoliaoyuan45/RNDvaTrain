@@ -1,5 +1,7 @@
 import request from 'js/utils/request';
-import { NavigationActions } from 'react-navigation';
+import {NavigationActions} from 'react-navigation';
+import {fromJS, Map} from 'immutable';
+import {Toast} from 'antd-mobile'
 import {
   COMMON_ERROR,
   LOGIN,
@@ -28,11 +30,12 @@ import {
 
 } from '../constants/ActionTypes';
 import {API} from '../config/api'
-import {DeviceEventEmitter,Alert} from 'react-native';
+import {DeviceEventEmitter, Alert} from 'react-native';
 import {createAction} from "../utils";
+
 export default {
   namespace: 'global',
-  state: {
+  state: Map({
     error: false,
     user: {},
     drawerState: 'closed',
@@ -60,14 +63,43 @@ export default {
       pageSize: 10,
       total: 1
     }
-  },
+  }),
   reducers: {
-    LOGIN_SUCCESS:{
-
+    [COMMON_ERROR](state, {payload}) {
+      console.log(payload.error);
+      return state.set('error', payload.error)
+    },
+    [LOGIN](state, {payload}) {
+      return state;
+    },
+    [LOGIN_SUCCESS](state, {payload}) {
+      return state
+        .set('user', payload.user)
+        .set('isLoggedIn', true)
+        .set('tabIndex', '1');
+    },
+    [LOGIN_ERROR](state, {payload}) {
+      if (payload.error) {
+        Toast.fail(JSON.stringify(payload.error), 3);
+      }
+      return state
+        .set('isAutoLoginSuccess', false);
+    },
+    [LOGOUT](state, {payload}) {
+      return state;
+    },
+    [LOGOUT_SUCCESS](state, {payload}) {
+      return state
+        .set('user', {})
+        .set('isLoggedIn', false)
+        .set('isAutoLoginSuccess', true);
+    },
+    [LOGOUT_ERROR](state, {payload}) {
+      return state;
     }
   },
   effects: {
-    *[LOGIN]({payload}, {call, put, select}) {
+    * [LOGIN]({payload}, {call, put, select}) {
       //重置
       let userLoginInfo = new Object();
       userLoginInfo.loginName = payload.loginName;
@@ -80,7 +112,8 @@ export default {
       const result = yield call(request, requestURL, {
         body: payload || {}
       });
-      if(result.success) {
+
+      if (result.success) {
         //用戶的登录信息,存放登录名、密码
         let userLoginInfo = new Object();
         userLoginInfo.loginName = payload.loginName;
@@ -92,24 +125,27 @@ export default {
         },);
 
         //非null判断
-        let userInfo  = result.data;
-        if(userInfo.labels == undefined){
+        let userInfo = result.data;
+        if (userInfo.labels == undefined) {
           Toast.info("角色为空，请联系管理员");
-          userInfo.labels  = "";
+          userInfo.labels = "";
         }
-        if(userInfo.labelIds == undefined){
-          userInfo.labelIds  = "";
+        if (userInfo.labelIds == undefined) {
+          userInfo.labelIds = "";
         }
-        if(!userInfo.codes || userInfo.codes.length<=0){
+        if (!userInfo.codes || userInfo.codes.length <= 0) {
           setTimeout(() => {
             Alert.alert(
               '权限配置',
               '\n用户权限暂未配置，请尽快联系管理员~',
               [
-                {text: '确定', onPress: () => {}},
+                {
+                  text: '确定', onPress: () => {
+                  }
+                },
               ],
             )
-          },300);
+          }, 300);
         }
         GLOBAL.storage.save({
           key: 'user',
@@ -118,10 +154,11 @@ export default {
 
         GLOBAL.token = result.data.token;
         GLOBAL.user = userInfo;
-        yield put(createAction(`global/${LOGIN_SUCCESS}`,result.data)());
-        yield put(NavigationActions.navigate({ routeName: 'TabNavigation' }))
-      } else{
-        yield put(commonError(result));
+       // yield put(createAction(`global/${LOGIN_SUCCESS}`)(result.data));
+        yield put(NavigationActions.navigate({routeName: 'TabNavigation'}))
+      } else {
+       // yield put(createAction(`global/${COMMON_ERROR}`)(result));
+        Toast.fail(result.errorMsg,1)
       }
 
     }
