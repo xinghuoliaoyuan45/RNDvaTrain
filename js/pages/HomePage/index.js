@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View,Text} from 'react-native'
 
+@connect()
 class home extends Component {
     render() {
         return (
@@ -11,11 +12,5 @@ class home extends Component {
         );
     }
 }
+export default home
 
-function mapStateToProps(state) {
-    return {};
-}
-
-export default connect(
-    mapStateToProps,
-)(home);

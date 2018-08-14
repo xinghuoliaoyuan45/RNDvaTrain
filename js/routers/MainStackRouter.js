@@ -14,12 +14,6 @@ export default StackNavigator({
 
 
 
-
-
-
-
-
-
 }, {
     headerMode: 'screen',
     navigationOptions: ({navigation}) => {

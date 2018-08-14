@@ -27,13 +27,12 @@ import {
   SAVE_SEARCH_USER_RESOURCE_FORM,
 
 } from '../constants/ActionTypes';
-import {fromJS, Map} from 'immutable';
 import {API} from '../config/api'
 import {DeviceEventEmitter,Alert} from 'react-native';
 import {createAction} from "../utils";
 export default {
   namespace: 'global',
-  state: Map({
+  state: {
     error: false,
     user: {},
     drawerState: 'closed',
@@ -61,7 +60,7 @@ export default {
       pageSize: 10,
       total: 1
     }
-  }),
+  },
   reducers: {
     LOGIN_SUCCESS:{
 
@@ -71,7 +70,7 @@ export default {
 
   },
   effects: {
-    *[LOGIN](payload, {call, put, select}) {
+    *[LOGIN]({payload}, {call, put, select}) {
       //重置
       let userLoginInfo = new Object();
       userLoginInfo.loginName = payload.loginName;
