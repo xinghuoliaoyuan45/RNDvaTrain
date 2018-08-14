@@ -35,7 +35,7 @@ import {createAction} from "../utils";
 
 export default {
   namespace: 'global',
-  state: Map({
+  state: {
     error: false,
     user: {},
     drawerState: 'closed',
@@ -63,7 +63,7 @@ export default {
       pageSize: 10,
       total: 1
     }
-  }),
+  },
   reducers: {
     [COMMON_ERROR](state, {payload}) {
       console.log(payload.error);

@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import SplashScreen from "react-native-splash-screen";
-import {AsyncStorage,BackHandler,Animated, Easing } from 'react-native';
+import {AsyncStorage,BackHandler,Animated, Easing ,ToastAndroid} from 'react-native';
 import MainStackRouter from "./routers/MainStackRouter";
 import Storage from 'react-native-storage';
 import { connect } from 'react-redux'
@@ -33,19 +33,23 @@ class Router extends PureComponent {
     BackHandler.addEventListener('rootRouterhardwareBackPress', this.backHandle)
   }
 
-  /**
-   * return: bool [true: 不返回主界面, false: 返回主界面]
-   */
   backHandle = () => {
-    /**
-     * todo 在这里写判断是否android点击返回键 2秒内逻辑
-     */
     const currentScreen = getCurrentScreen(this.props.router)
-    if (currentScreen === 'Login') {
+    if (currentScreen === 'home'||currentScreen === 'me') {
+      let now = Date.now()
+      if (this.lastBackPressed && this.lastBackPressed + 2000 >= now) {
+        //最近2秒内按过back键，可以退出应用。
+        BackHandler.exitApp() // 退出APP
+        return true
+      }
+      this.lastBackPressed = Date.now();
+      ToastAndroid.show('再按一次退出应用', ToastAndroid.SHORT);
+      return true
+
+    }else {
+      this.props.dispatch(NavigationActions.back())
       return false
     }
-    this.props.dispatch(NavigationActions.back())
-    return true
   }
 
 
@@ -71,6 +75,7 @@ export function routerReducer(state, action = {}) {
   return MainStackRouter.router.getStateForAction(action, state)
 }
 function getCurrentScreen(navigationState) {
+
   if (!navigationState) {
     return null
   }
