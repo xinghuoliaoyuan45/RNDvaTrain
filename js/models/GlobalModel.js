@@ -65,9 +65,6 @@ export default {
     LOGIN_SUCCESS:{
 
     }
-
-
-
   },
   effects: {
     *[LOGIN]({payload}, {call, put, select}) {

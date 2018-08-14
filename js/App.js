@@ -24,7 +24,7 @@ let store = app.getStore()
 const App = app.start(<Router store={store}/>)
 persistStore(store, {
   storage: AsyncStorage,
-  //blacklist
+  blacklist:'router'
 })
 
 export default App;

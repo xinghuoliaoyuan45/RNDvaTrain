@@ -2,11 +2,11 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View,Text} from 'react-native'
 
-@connect()
+
 class home extends Component {
     render() {
         return (
-            <View>
+            <View style={{justifyContent:'center', alignItems:'center'}}>
                 <Text>home</Text>
             </View>
         );

@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 class MeScreen extends Component {
     render() {
         return (
-            <View>
+            <View  style={{justifyContent:'center', alignItems:'center'}}>
                <Text>MeScreen</Text>
             </View>
         );

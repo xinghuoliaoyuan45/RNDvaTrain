@@ -30,7 +30,7 @@ const deviceWidth = Dimensions.get('window').width;
 
 const REQ_TIMEOUT = 30000;
 
-@connect()
+
 class Login extends Component {
 
   static propTypes = {};
@@ -137,7 +137,7 @@ class Login extends Component {
       password: this.state.password,
       apptype: Platform.OS.toUpperCase(),
       nowVersion: DeviceInfo.getVersion(),
-    }))
+    })())
 
   }
 
@@ -188,7 +188,7 @@ class Login extends Component {
                 </View>
                 <View style={{height: 1, backgroundColor: colors.lightBorderColor}}/>
               </View>
-              <TouchableOpacity onPress={this.submitForm}>
+              <TouchableOpacity onPress={()=>{this.submitForm}}>
                 <View
                   style={{...styles.loginButton}}>
                   <Text style={{fontSize: 20, color: colors.white}}>{"登录"}</Text>
@@ -210,7 +210,18 @@ class Login extends Component {
     );
   }
 }
-export default Login
+const mapStateToProps=(state) =>{
+  return {};
+}
+const mapDispatchToProps=(dispatch)=>{
+  return{
+    dispatch,
+    login:(param)=>dispatch(createAction(`global/${LOGIN}`)(param)())
+
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Login);
+
 
 const styles = {
   formItem: {
