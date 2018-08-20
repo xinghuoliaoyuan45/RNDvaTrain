@@ -6,7 +6,10 @@ import me from '../pages/MePage'
 import GlobalModel from "../models/GlobalModel";
 
 
-let a = false
+let a
+if(GLOBAL.user){
+  a = GLOBAL.user.deptType===5
+}
 let judagePermission
 if (a) {
   judagePermission = {
@@ -37,3 +40,4 @@ export default TabNavigator(
     animationEnabled: Platform.OS === 'ios'
   }
 )
+

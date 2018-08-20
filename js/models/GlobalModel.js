@@ -1,41 +1,20 @@
 import request from 'js/utils/request';
 import {NavigationActions} from 'react-navigation';
-import {fromJS, Map} from 'immutable';
 import {Toast} from 'antd-mobile'
 import {
   COMMON_ERROR,
   LOGIN,
   LOGIN_SUCCESS,
-  LOGIN_ERROR,
-  LOGOUT,
-  LOGOUT_SUCCESS,
-  LOGOUT_ERROR,
-  REGISTER,
-  REGISTER_SUCCESS,
-  REGISTER_ERROR,
-  /**用户字典**/
-    LOAD_DICT_LIST,
-  LOAD_DICT_LIST_SUCCESS,
-  LOAD_DICT_LIST_ERROR,
-  /* 保存登陆表单 */
-  SAVE_LOGIN_FORM,
-
-  /* 加载用户资源（权限）列表*/
-  LOAD_USER_RESOURCE_LIST,
-  LOAD_USER_RESOURCE_LIST_SUCCESS,
-  LOAD_USER_RESOURCE_LIST_ERROR,
-
-  /* 保存用户资源（权限）搜索表单*/
-  SAVE_SEARCH_USER_RESOURCE_FORM,
-
 } from '../constants/ActionTypes';
 import {API} from '../config/api'
 import {DeviceEventEmitter, Alert} from 'react-native';
 import {createAction} from "../utils";
+import {Map} from 'immutable';
+
 
 export default {
   namespace: 'global',
-  state: {
+  state: Map({
     error: false,
     user: {},
     drawerState: 'closed',
@@ -44,7 +23,6 @@ export default {
     /**用户字典**/
     dictList: [],
     allDictMap: {},
-
     loginForm: {
       doingAutoLogin: false, //是否正在登录
       showLoginUI: false, //是否显示登录UI
@@ -63,11 +41,11 @@ export default {
       pageSize: 10,
       total: 1
     }
-  },
+  }),
   reducers: {
     [COMMON_ERROR](state, {payload}) {
-      console.log(payload.error);
-      return state.set('error', payload.error)
+      console.log(payload.errorMsg);
+      return state.set('error', payload.errorMsg)
     },
     [LOGIN](state, {payload}) {
       return state;
@@ -78,25 +56,6 @@ export default {
         .set('isLoggedIn', true)
         .set('tabIndex', '1');
     },
-    [LOGIN_ERROR](state, {payload}) {
-      if (payload.error) {
-        Toast.fail(JSON.stringify(payload.error), 3);
-      }
-      return state
-        .set('isAutoLoginSuccess', false);
-    },
-    [LOGOUT](state, {payload}) {
-      return state;
-    },
-    [LOGOUT_SUCCESS](state, {payload}) {
-      return state
-        .set('user', {})
-        .set('isLoggedIn', false)
-        .set('isAutoLoginSuccess', true);
-    },
-    [LOGOUT_ERROR](state, {payload}) {
-      return state;
-    }
   },
   effects: {
     * [LOGIN]({payload}, {call, put, select}) {
@@ -154,10 +113,10 @@ export default {
 
         GLOBAL.token = result.data.token;
         GLOBAL.user = userInfo;
-       // yield put(createAction(`global/${LOGIN_SUCCESS}`)(result.data));
+        yield put(createAction(`${LOGIN_SUCCESS}`)(result.data));
         yield put(NavigationActions.navigate({routeName: 'TabNavigation'}))
       } else {
-       // yield put(createAction(`global/${COMMON_ERROR}`)(result));
+        yield put(createAction(`${COMMON_ERROR}`)(result));
         Toast.fail(result.errorMsg,1)
       }
 
