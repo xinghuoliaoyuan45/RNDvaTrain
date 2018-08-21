@@ -1,13 +1,13 @@
 import React from 'react';
 import dva from './utils/Dva';
 import {AsyncStorage} from 'react-native'
-//import {persistStore, autoRehydrate} from 'redux-persist'
+
 
 import HomeModel from './models/HomeModel';
 import MeModel from './models/MeModel';
 import RouterModel from './models/RouterModel'
 import GlobalModel from './models/GlobalModel'
-
+import createLogger from 'redux-logger'
 
 
 import Router from "./router";
@@ -15,7 +15,8 @@ import Router from "./router";
 const app = dva({
   initialState: {},
   models: [HomeModel,MeModel,RouterModel,GlobalModel],
-  //extraEnhancers: [autoRehydrate()],
+  onAction:createLogger(), // onAction支持数组，可同时传入多个中间件
+
   onError(e) {
     console.log('onError', e);
   },
@@ -23,10 +24,6 @@ const app = dva({
 let store = app.getStore()
 const App = app.start(<Router store={store}/>)
 
-// persistStore(store, {
-//   storage: AsyncStorage,
-//   blacklist:'router'
-// })
 
 export default App;
 
