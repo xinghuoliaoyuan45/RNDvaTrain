@@ -47,7 +47,7 @@ export default {
   reducers: {
     [TEST_TO_REDUCER](state,{payload}){
       console.log(payload)
-      return state.set('testReducer',1111)
+      return state.set('testReducer',payload.a)
     },
     [COMMON_ERROR](state, {payload}) {
       console.log(payload.errorMsg);

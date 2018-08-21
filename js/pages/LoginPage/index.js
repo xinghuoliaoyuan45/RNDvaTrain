@@ -133,14 +133,14 @@ class Login extends Component {
     }
 
 
-
-    this.props.dispatch(createAction(`global/${LOGIN}`)({
+    const {dispatch} = this.props
+    dispatch(createAction(`global/${LOGIN}`)({
       loginName: this.state.loginName,
       password: this.state.password,
       apptype: Platform.OS.toUpperCase(),
       nowVersion: DeviceInfo.getVersion(),
     }))
-    //this.props.dispatch(createAction(`global/${TEST_TO_REDUCER}`)({a:1}))
+    this.props.dispatch(createAction(`global/${TEST_TO_REDUCER}`)({a:'马骁尧'}))
 
   }
 
