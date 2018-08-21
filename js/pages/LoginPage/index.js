@@ -19,7 +19,7 @@ import {
 import HeadStatusBar from 'js/components/HeadStatusBar';
 import {Container} from 'native-base'
 import {Toast} from 'antd-mobile';
-import {LOGIN} from '../../constants/ActionTypes'
+import {LOGIN, TEST_TO_REDUCER} from '../../constants/ActionTypes'
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import DeviceInfo from 'react-native-device-info';
 import {createAction} from '../../utils'
@@ -53,6 +53,7 @@ class Login extends Component {
 
     this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
     });
+
   }
 
   /**滚动到指定元素*/
@@ -131,14 +132,16 @@ class Login extends Component {
       return;
     }
 
-    const { dispatch } = this.props;
 
-    dispatch(createAction(`global/${LOGIN}`)({
+
+    this.props.dispatch(createAction(`global/${LOGIN}`)({
       loginName: this.state.loginName,
       password: this.state.password,
       apptype: Platform.OS.toUpperCase(),
       nowVersion: DeviceInfo.getVersion(),
     }))
+    //this.props.dispatch(createAction(`global/${TEST_TO_REDUCER}`)({a:1}))
+
   }
 
   render() {

@@ -5,6 +5,7 @@ import {
   COMMON_ERROR,
   LOGIN,
   LOGIN_SUCCESS,
+  TEST_TO_REDUCER
 } from '../constants/ActionTypes';
 import {API} from '../config/api'
 import {DeviceEventEmitter, Alert} from 'react-native';
@@ -40,9 +41,14 @@ export default {
       current: 1,
       pageSize: 10,
       total: 1
-    }
+    },
+    testReducer:0
   }),
   reducers: {
+    [TEST_TO_REDUCER](state,{payload}){
+      console.log(payload)
+      return state.set('testReducer',1111)
+    },
     [COMMON_ERROR](state, {payload}) {
       console.log(payload.errorMsg);
       return state.set('error', payload.errorMsg)
@@ -56,6 +62,7 @@ export default {
         .set('isLoggedIn', true)
         .set('tabIndex', '1');
     },
+
   },
   effects: {
     * [LOGIN]({payload}, {call, put, select}) {
