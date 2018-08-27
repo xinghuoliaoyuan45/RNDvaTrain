@@ -53,6 +53,7 @@ class Login extends Component {
 
     this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
     });
+    this.props.dispatch(createAction(`global/${TEST_TO_REDUCER}`)({a:'马骁尧'}))
 
   }
 
@@ -140,11 +141,14 @@ class Login extends Component {
       apptype: Platform.OS.toUpperCase(),
       nowVersion: DeviceInfo.getVersion(),
     }))
-    this.props.dispatch(createAction(`global/${TEST_TO_REDUCER}`)({a:'马骁尧'}))
+
 
   }
 
   render() {
+    //debugger
+    console.log('测试从store里面读取数据         '+this.props.a)
+    console.log('testReducer      '+this.props.testReducer)
     return (
       <Container style={{backgroundColor: colors.white}}>
         <HeadStatusBar/>
@@ -215,7 +219,10 @@ class Login extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    a:(state.global).getIn(['userResourceList',0,'name']),
+    testReducer:state.global.getIn(['testReducer'])
+  };
 }
 
 export default connect(mapStateToProps)(Login);
