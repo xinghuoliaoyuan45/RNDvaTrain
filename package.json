@@ -10,6 +10,7 @@
     "antd-mobile": "^1.6.7",
     "dva-core": "^1.4.0",
     "immutable": "^3.8.2",
+    "ky": "^0.2.0",
     "moment": "^2.22.2",
     "native-base": "^2.7.2",
     "react": "16.4.1",

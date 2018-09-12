@@ -38,7 +38,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loginName: "yingwen",
+      loginName: "bjdz",
       password: "",
       loginIndex: 1,
       placeViewHeight: 0,
@@ -69,10 +69,7 @@ class Login extends Component {
   }
 
   componentWillMount() {
-    // this.startTimer = setTimeout(()=>{this.showLoginUI();},REQ_TIMEOUT);
-    // InteractionManager.runAfterInteractions(() => {
-    //  this.autologin();
-    //  });
+
   }
 
   componentWillUnmount() {
@@ -83,44 +80,6 @@ class Login extends Component {
     this.startTimer && clearTimeout(this.startTimer);
     this.finallyTimer && clearTimeout(this.finallyTimer);
   };
-
-  // autologin() {
-  //   Toast.loading("加载中");
-  //   this.props.logoutSuccess();
-  //   GLOBAL.storage.load({
-  //     key: 'userLoginInfo',
-  //     autoSync: true,
-  //     syncInBackground: true,
-  //   }).then(ret => {
-  //     // console.log("ret",ret);
-  //
-  //     this.setState({loginName: ret.loginName, password: ""});
-  //     if(ret.loginName && ret.password){
-  //       // 自动登录时，需要隐藏登录表单
-  //       this.props.saveLoginForm({
-  //         showLoginUI: false
-  //       });
-  //       this.props.login({
-  //         loginName: ret.loginName,
-  //         password: ret.password,
-  //         apptype: Platform.OS.toUpperCase(),
-  //         nowVersion: DeviceInfo.getVersion(),
-  //       });
-  //     }else{ //如果没有获取到登录账号和密码， 则显示登录输入框
-  //       this.showLoginUI();
-  //     }
-  //     return ret;
-  //   }).catch(err => {
-  //     this.showLoginUI();
-  //   }).finally(()=>{
-  //     this.finallyTimer = setTimeout(()=>{this.showLoginUI();},REQ_TIMEOUT);
-  //   });
-  // }
-  // showLoginUI = () =>{
-  //    this.props.saveLoginForm({
-  //      showLoginUI: true
-  //    });
-  // };
 
 
   submitForm = () => {

@@ -66,14 +66,7 @@ export default {
   },
   effects: {
     * [LOGIN]({payload}, {call, put, select}) {
-      //重置
-      let userLoginInfo = new Object();
-      userLoginInfo.loginName = payload.loginName;
-      userLoginInfo.password = "";
-      GLOBAL.storage.save({
-        key: 'userLoginInfo',
-        data: userLoginInfo
-      });
+
       const requestURL = API.login;
       const result = yield call(request, requestURL, {
         body: payload || {}
@@ -85,41 +78,8 @@ export default {
         userLoginInfo.loginName = payload.loginName;
         userLoginInfo.password = payload.password;
 
-        GLOBAL.storage.save({
-          key: 'userLoginInfo',
-          data: userLoginInfo
-        },);
-
-        //非null判断
-        let userInfo = result.data;
-        if (userInfo.labels == undefined) {
-          Toast.info("角色为空，请联系管理员");
-          userInfo.labels = "";
-        }
-        if (userInfo.labelIds == undefined) {
-          userInfo.labelIds = "";
-        }
-        if (!userInfo.codes || userInfo.codes.length <= 0) {
-          setTimeout(() => {
-            Alert.alert(
-              '权限配置',
-              '\n用户权限暂未配置，请尽快联系管理员~',
-              [
-                {
-                  text: '确定', onPress: () => {
-                  }
-                },
-              ],
-            )
-          }, 300);
-        }
-        GLOBAL.storage.save({
-          key: 'user',
-          data: userInfo,
-        });
 
         GLOBAL.token = result.data.token;
-        GLOBAL.user = userInfo;
         yield put(createAction(`${LOGIN_SUCCESS}`)(result.data));
         yield put(NavigationActions.navigate({routeName: 'TabNavigation'}))
       } else {
