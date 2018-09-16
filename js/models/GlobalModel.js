@@ -10,12 +10,12 @@ import {
 import {API} from '../config/api'
 import {DeviceEventEmitter, Alert} from 'react-native';
 import {createAction} from "../utils";
-import {Map} from 'immutable';
+import Immutable from 'immutable';
 
 
 export default {
   namespace: 'global',
-  state: Map({
+  state: Immutable.fromJS({
     error: false,
     user: {},
     drawerState: 'closed',

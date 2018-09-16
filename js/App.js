@@ -1,13 +1,11 @@
 import React from 'react';
 import dva from './utils/Dva';
-import {AsyncStorage} from 'react-native'
-
 
 import HomeModel from './models/HomeModel';
 import MeModel from './models/MeModel';
 import RouterModel from './models/RouterModel'
 import GlobalModel from './models/GlobalModel'
-import createLogger from 'redux-logger'
+//import { createLogger } from 'redux-logger';  //immutable 数据结构在 console里面是无法看到的 无效
 
 
 import Router from "./router";
@@ -15,8 +13,7 @@ import Router from "./router";
 const app = dva({
   initialState: {},
   models: [HomeModel,MeModel,RouterModel,GlobalModel],
-  onAction:createLogger(), // onAction支持数组，可同时传入多个中间件
-
+  // onAction: createLogger(),
   onError(e) {
     console.log('onError', e);
   },
