@@ -1,0 +1,16 @@
+{
+  "name": "dva-generator",
+  "version": "0.1.1",
+  "description": "基于react的dva代码生成器",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "camelcase": "^4.0.0",
+    "capitalize": "^1.0.0",
+    "dot": "^1.1.1",
+    "minimist": "^1.2.0",
+    "reserved-words": "^0.1.1"
+  }
+}
