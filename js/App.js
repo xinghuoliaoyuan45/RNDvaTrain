@@ -7,7 +7,7 @@ import GlobalModel from './models/GlobalModel'
 //import { createLogger } from 'redux-logger';  //immutable 数据结构在 console里面是无法看到的 无效
 
 
-import Router from "./router";
+import Root from "./Root";
 
 const app = dva({
   initialState: {},
@@ -15,7 +15,7 @@ const app = dva({
 
 });
 let store = app.getStore()
-const App = app.start(<Router store={store}/>)
+const App = app.start(<Root store={store}/>)
 
 
 export default App;

@@ -1,5 +1,4 @@
 import request from 'js/utils/request';
-import {NavigationActions} from 'react-navigation';
 import {Toast} from 'antd-mobile'
 import {
   COMMON_ERROR,
@@ -11,6 +10,7 @@ import {API} from '../config/api'
 import {DeviceEventEmitter, Alert} from 'react-native';
 import {createAction} from "../utils";
 import Immutable from 'immutable';
+import {Actions} from 'react-native-router-flux'
 
 
 export default {
@@ -81,7 +81,7 @@ export default {
 
         GLOBAL.token = result.data.token;
         yield put(createAction(`${LOGIN_SUCCESS}`)(result.data));
-        yield put(NavigationActions.navigate({routeName: 'TabNavigation'}))
+       Actions.home()
       } else {
         yield put(createAction(`${COMMON_ERROR}`)(result));
         Toast.fail(result.errorMsg,1)

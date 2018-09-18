@@ -3,6 +3,8 @@ import {
   Text,
   View,
   StyleSheet,
+  BackHandler,
+  ToastAndroid,
 } from 'react-native'
 import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
 import {
@@ -22,14 +24,24 @@ import {
 import Login from './LoginPage'
 import Home  from './HomePage'
 
+
 const onBackPress = () => {
-  console.log(Actions.state);
-  if (Actions.state.index !== 1) {
-    return false
+  const currentScreen = getCurrentScreen(Actions.state)
+  if (currentScreen === 'home'||'login') {
+    let now = Date.now()
+    if (this.lastBackPressed && this.lastBackPressed + 2000 >= now) {
+      return false
+    }
+    this.lastBackPressed = Date.now();
+    ToastAndroid.show('再按一次退出应用', ToastAndroid.SHORT);
+    return true
+
+  }else {
+    Actions.pop()
+    return true
   }
-  Actions.pop()
-  return true
 }
+
 
 export  const Pages = () => (
   <Router backAndroidHandler={onBackPress}>
@@ -37,9 +49,19 @@ export  const Pages = () => (
       hideNavBar
       transitionConfig={() => ({ screenInterpolator: CardStackStyleInterpolator.forFadeFromBottomAndroid })}
     >
-        <Stack hideNavBar component={Login} key="Login"/>
+        <Scene hideNavBar component={Login} key="login"/>
         <Scene hideNavBar component={Home} key="home"/>
-
     </Modal>
   </Router>
 );
+
+function getCurrentScreen(navigationState) {
+  if (!navigationState) {
+    return null
+  }
+  const route = navigationState.routes[navigationState.index]
+  if (route.routes) {
+    return getCurrentScreen(route)
+  }
+  return route.routeName
+}
