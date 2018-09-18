@@ -1,0 +1,11 @@
+ModelName: global
+actions:
+  - name: 保存登陆表单
+    type: single
+    method_base: saveLoginForm
+    constant_name: SAVE_LOGIN_FORM
+
+  - name: 获取登录数据
+    type: api
+    method_base: getMessage
+    constant_name: GET_MESSAGE
