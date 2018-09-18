@@ -22,12 +22,12 @@ import {
 } from 'react-native-router-flux';
 
 import Login from './LoginPage'
-import Home  from './HomePage'
+import Home from './HomePage'
 
 
 const onBackPress = () => {
   const currentScreen = getCurrentScreen(Actions.state)
-  if (currentScreen === 'home'||'login') {
+  if (currentScreen === 'home') {
     let now = Date.now()
     if (this.lastBackPressed && this.lastBackPressed + 2000 >= now) {
       return false
@@ -35,22 +35,24 @@ const onBackPress = () => {
     this.lastBackPressed = Date.now();
     ToastAndroid.show('再按一次退出应用', ToastAndroid.SHORT);
     return true
-
-  }else {
+  } else if (currentScreen === 'login') {
+    return false
+  }
+  else {
     Actions.pop()
     return true
   }
 }
 
 
-export  const Pages = () => (
+export const Pages = () => (
   <Router backAndroidHandler={onBackPress}>
     <Modal
       hideNavBar
-      transitionConfig={() => ({ screenInterpolator: CardStackStyleInterpolator.forFadeFromBottomAndroid })}
+      transitionConfig={() => ({screenInterpolator: CardStackStyleInterpolator.forFadeFromBottomAndroid})}
     >
-        <Scene hideNavBar component={Login} key="login"/>
-        <Scene hideNavBar component={Home} key="home"/>
+      <Scene hideNavBar component={Login} key="login"/>
+      <Scene hideNavBar component={Home} key="home"/>
     </Modal>
   </Router>
 );

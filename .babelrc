@@ -5,7 +5,9 @@
     ["module-resolver", {
       "cwd": "babelrc",
       "alias": {
-        "js": "./js"
+        "js": "./js",
+        "models":"./models",
+        "pages":"./pages"
       }
     }]
   ]

@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View, Text} from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
+import ScrollableTabView, {DefaultTabBar, ScrollableTabBar} from 'react-native-scrollable-tab-view';
+import ImageTopTab from 'js/components/ImageTopTab';
+import HeadStatusBar from 'js/components/HeadStatusBar';
 
 
 class home extends Component {
@@ -9,19 +12,27 @@ class home extends Component {
 
   render() {
     return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <View style={{height: 80, width: '100%', backgroundColor: 'red', flexDirection: 'row'}}>
-          <View style={{flex:1}}>
-            <Text>11111111111111111111111111111111111111111111</Text>
+
+        <Container style={styles.container}>
+          <HeadStatusBar/>
+          <View style={{backgroundColor: colors.dividerLineColor, width: deviceWidth, height: 1}}/>
+          <View style={{height: isIphoneXTabBarHeight()}}>
+            <ScrollableTabView
+              initialPage={this.props.tabIndex - 1}
+              renderTabBar={this._renderTabBar}
+            >
+              {null}
+            </ScrollableTabView>
+
+            {(hasPermission(resourceMap.WORK) && parseInt(this.props.allUnReadCount + "") > 0) && (
+              <View style={[chatStyles.badge, {left: this.getBadgeLeft(),}]}>
+                <Text
+                  style={chatStyles.badgeText}>{this.props.allUnReadCount <= 99 ? this.props.allUnReadCount : 99}</Text>
+              </View>)}
           </View>
 
-
-          <Text style={{witdh:80, alignSelf:'center'}}>2222222</Text>
-
-        </View>
-
-      </View>
-    );
+        </Container>
+      );
   }
 }
 
