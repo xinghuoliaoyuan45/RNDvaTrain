@@ -81,7 +81,7 @@ export default {
 
         GLOBAL.token = result.data.token;
         yield put(createAction(`${LOGIN_SUCCESS}`)(result.data));
-       Actions.home()
+      Actions.home({title:'maxiaoyao'})
       } else {
         yield put(createAction(`${COMMON_ERROR}`)(result));
         Toast.fail(result.errorMsg,1)

@@ -1,0 +1,77 @@
+// {
+//   filename:"testModel"
+//   "namespace": "test",
+//   "actions": [   {
+//   "name": "保存登陆表单",
+//   "type": "single",
+//   "method_base": "saveLoginForm",
+//   "constant_name": "SAVE_LOGIN_FORM"
+// }, {
+//   "name": "获取登录数据",
+//   "type": "api",
+//   "method_base": "getMessage",
+//   "constant_name": "GET_MESSAGE"
+// }]
+// }
+//--------------------
+//复制到 config/api文件 里面
+
+{{~ it.actions:value}}
+{{? value.type=='api'}}
+//{{=value.name}}
+{{=value.urlName}}: 'server + {{=value.urlPath}}'{{?}}{{~}}
+
+//-----------------------------
+
+
+
+
+
+
+
+//--------------------------
+import {API} from '../config/api'
+import request from 'js/utils/request';
+import {Toast} from 'antd-mobile'
+import {createAction} from "../utils";
+import Immutable from 'immutable';
+
+import{
+  {{~ it.actions:value}}{{=value.constant_name}},{{~}}
+  }  from '../constants/ActionTypes';
+
+export default {
+  namespace: '{{=it.namespace}}',
+  state: Immutable.fromJS({
+      data:{}
+  }),
+reducers: {
+  {{~ it.actions:value}}{{? value.type=='single'}}/** {{=value.name}}*/
+  [{{=value.constant_name}}](state, { payload }){
+      return { ...state, a: '1' };
+    },
+  {{?? value.type=='api'}}/** {{=value.name}}*/
+  [{{=value.constant_name+'_SUCCESS'}}](state, { payload }){
+          return { ...state, a: '1' };
+        },
+  {{??}}/** {{=value.name}} */
+  [{{=value.constant_name}}](state, { payload }){
+             return { ...state, a: '1' };
+         },
+   {{?}}{{~}}},
+effects: {
+ {{~ it.actions:value}}{{? value.type=='api'}}
+  * [{{=value.constant_name}}]({payload}, {call, put, select}){
+      const requestURL = API.{{= value.constant_name}};
+       const result = yield call(request, requestURL, {
+          body: payload || {}
+       });
+       if (result.success) {
+          yield put(createAction(`${{{=value.constant_name+'_SUCCESS'}}}`)(result.data));
+        }else{
+         yield put(createAction(`${COMMON_ERROR}`)(result));
+      }
+   }, {{?}}{{~}}
+  },
+}
+

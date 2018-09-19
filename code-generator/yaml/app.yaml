@@ -1,11 +1,20 @@
-ModelName: global
+
+
+filename: maxiaoyaoModels.js
+namespace: test
 actions:
+  - name: 获取部门树
+    type: api
+    constant_name: GET_DEPT_TREE
+    urlName: getDeptTree
+    urlPath: /api/v1/us/depts/stores/treelist
+
+  - name: 登录
+    type: api
+    constant_name: GET_MESSAGE
+    urlName: login
+    urlPath: /api/v1/us/users/login
+
   - name: 保存登陆表单
     type: single
-    method_base: saveLoginForm
     constant_name: SAVE_LOGIN_FORM
-
-  - name: 获取登录数据
-    type: api
-    method_base: getMessage
-    constant_name: GET_MESSAGE

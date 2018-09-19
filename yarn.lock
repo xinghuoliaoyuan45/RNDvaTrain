@@ -3433,6 +3433,10 @@ kw-react-tween-state@^0.1.5:
     raf "^3.1.0"
     tween-functions "^1.0.1"
 
+ky@^0.2.0:
+  version "0.2.0"
+  resolved "http://registry.npm.taobao.org/ky/download/ky-0.2.0.tgz#275f88e42d41ae9cfed8ced9b4518b7e261a3d9a"
+
 lazy-cache@^1.0.3:
   version "1.0.4"
   resolved "http://registry.npm.taobao.org/lazy-cache/download/lazy-cache-1.0.4.tgz#a1d78fc3a50474cb80845d3b3b6e1da49a446e8e"
@@ -4785,7 +4789,7 @@ react-native-menu@~0.21.0:
   dependencies:
     react-timer-mixin "^0.13.3"
 
-react-native-router-flux@^4.0.1:
+react-native-router-flux@^4.0.0-beta.26:
   version "4.0.1"
   resolved "http://registry.npm.taobao.org/react-native-router-flux/download/react-native-router-flux-4.0.1.tgz#78eeb01395aeec268292912c8d88bf1264a68e82"
   dependencies:

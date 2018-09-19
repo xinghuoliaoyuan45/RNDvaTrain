@@ -51,8 +51,9 @@ export const Pages = () => (
       hideNavBar
       transitionConfig={() => ({screenInterpolator: CardStackStyleInterpolator.forFadeFromBottomAndroid})}
     >
-      <Scene hideNavBar component={Login} key="login"/>
+      <Scene title={'登录'} component={Login} key="login"/>
       <Scene hideNavBar component={Home} key="home"/>
+      <Scene hideNavBar component={Home} key="home1"/>
     </Modal>
   </Router>
 );

@@ -4,7 +4,8 @@ const fs = require('fs');
 
 
 const templatesDir = path.join(__dirname, 'templates');
-const templateFileName = 'dvaModel.js'
+const templateFileName = 'dvaModel.dot'
+const outPutDir = path.join(__dirname, 'output/models/');
 
 /**
  * 生成文件模板
@@ -27,13 +28,17 @@ function interpolateTemplate(config, templateSource) {
  * @returns {*}
  */
 function saveSource(path, fileName, source) {
+  console.log(">>>>>>>>>>>>>path"+path+"fileName"+fileName,"source"+source)
+  let isHave = false
   if (fs.existsSync(path + fileName)) {
     console.log('文件已存在！')
-    return false;
+    isHave = true
   }
   mkdirp(path)
   return new Promise((resolve, reject) => {
-    fs.writeFile(path + fileName, source, function (err) {
+    console.log(isHave && console.log('提示： 文件已经存在将会覆盖之前的'+fileName));
+    console.log("写入文件>>>>>>"+ path)
+    fs.writeFile(path+fileName, source, function (err) {
       if (err) {
         reject('写入文件报错>>>>>>'+err);
       } else {
@@ -86,8 +91,8 @@ function operation(settings){
     loadTemplate()
       .then(template => {
         let source = interpolateTemplate(settings, template);
-        let path = settings.fileName;
-        return saveSource(templatesDir,path, source);
+        let filename = settings.filename;
+        return saveSource(outPutDir,filename, source);
       })
       .then(outputFileName => {
         console.log('Created file: ' + outputFileName);
