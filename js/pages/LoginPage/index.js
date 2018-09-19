@@ -23,6 +23,7 @@ import {LOGIN, TEST_TO_REDUCER} from '../../constants/ActionTypes'
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import DeviceInfo from 'react-native-device-info';
 import {createAction} from '../../utils'
+import {Actions} from 'react-native-router-flux'
 
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
@@ -106,8 +107,6 @@ class Login extends Component {
 
   render() {
     //debugger
-    console.log('测试从store里面读取数据         '+this.props.a)
-    console.log('testReducer      '+this.props.testReducer)
     return (
       <Container style={{backgroundColor: colors.white}}>
         <HeadStatusBar/>
@@ -179,7 +178,7 @@ class Login extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    a:(state.global).getIn(['userResourceList',0,'name']),
+    a:state.global.getIn(['userResourceList',0,'name']),
     testReducer:state.global.getIn(['testReducer'])
   };
 }

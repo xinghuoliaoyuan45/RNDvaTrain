@@ -23,6 +23,7 @@ import {
 
 import Login from './LoginPage'
 import Home from './HomePage'
+import TestPage from './TestPage'
 
 
 const onBackPress = () => {
@@ -51,9 +52,9 @@ export const Pages = () => (
       hideNavBar
       transitionConfig={() => ({screenInterpolator: CardStackStyleInterpolator.forFadeFromBottomAndroid})}
     >
-      <Scene title={'登录'} component={Login} key="login"/>
-      <Scene hideNavBar component={Home} key="home"/>
-      <Scene hideNavBar component={Home} key="home1"/>
+      <Scene   component={Login} key="login"/>
+      <Scene  component={Home} key="home"/>
+      <Scene  component={TestPage} key={'test'}/>
     </Modal>
   </Router>
 );
