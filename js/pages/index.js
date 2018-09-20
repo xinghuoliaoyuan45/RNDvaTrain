@@ -49,12 +49,13 @@ const onBackPress = () => {
 export const Pages = () => (
   <Router backAndroidHandler={onBackPress}>
     <Modal
-      hideNavBar
-      transitionConfig={() => ({screenInterpolator: CardStackStyleInterpolator.forFadeFromBottomAndroid})}
+       
+      transitionConfig={() => ({screenInterpolator: CardStackStyleInterpolator.forHorizontal})}
     >
-      <Scene   component={Login} key="login"/>
-      <Scene  component={Home} key="home"/>
+      <Scene hideNavBar component={Login} key="login"/>
+      <Scene hideNavBar component={Home} key="home"/>
       <Scene  component={TestPage} key={'test'}/>
+    
     </Modal>
   </Router>
 );

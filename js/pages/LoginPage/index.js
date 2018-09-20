@@ -28,10 +28,6 @@ import {Actions} from 'react-native-router-flux'
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 
-
-const REQ_TIMEOUT = 30000;
-
-
 class Login extends Component {
 
   static propTypes = {};
@@ -60,13 +56,7 @@ class Login extends Component {
 
   /**滚动到指定元素*/
   _scrollToTarget = (event) => {
-    let height = event.endCoordinates.screenY
-    if (Platform.OS === 'android') {
       this._scroll.scrollToEnd()
-      // this._scroll.scrollTo({y: height,animated: false})
-    } else {
-      this._scroll.scrollToEnd()
-    }
   }
 
   componentWillMount() {
@@ -114,6 +104,7 @@ class Login extends Component {
           ref={(scroll) => this._scroll = scroll}
           contentContainerStyle={{backgroundColor: colors.white}}>
           <Image style={{
+            resizeMode:'stretch',
             width: deviceWidth,
             height: deviceHeight / 2 - 80,
           }} source={require('js/assets/images/login-bg-1.png')}/>
@@ -128,8 +119,11 @@ class Login extends Component {
             <View style={styles.formItem}>
               <View style={{flex: 1, flexDirection: 'row'}}>
                 <MCIcon name={'account-outline'} size={22} color={colors.primaryLight2} style={styles.loginIcon}/>
-                <TextInput underlineColorAndroid="transparent" autoCapitalize={"none"}
-                           ref={"name"} style={{...styles.textInputStyles, flex: 1}} placeholder="用户名/手机号"
+                <TextInput underlineColorAndroid="transparent"
+                           autoCapitalize={"none"}
+                           ref={"name"}
+                           style={{...styles.textInputStyles, flex: 1}}
+                           placeholder="用户名/手机号"
                            placeholderTextColor={colors.textLight}
                            maxLength={30}
                            defaultValue={this.state.loginName}
@@ -142,8 +136,11 @@ class Login extends Component {
             <View style={styles.formItem}>
               <View style={{flex: 1, flexDirection: 'row'}}>
                 <MCIcon name={'lock-outline'} size={20} color={colors.primaryLight2} style={styles.loginIcon}/>
-                <TextInput underlineColorAndroid="transparent" autoCapitalize={"none"}
-                           ref={"password"} style={{...styles.textInputStyles, flex: 1}} placeholder="密码"
+                <TextInput underlineColorAndroid="transparent"
+                           autoCapitalize={"none"}
+                           ref={"password"}
+                           style={{...styles.textInputStyles, flex: 1}}
+                           placeholder="密码"
                            placeholderTextColor={colors.textLight}
                            maxLength={30}
                            defaultValue={this.state.password}
@@ -168,7 +165,7 @@ class Login extends Component {
               </View>
             </TouchableOpacity>
           </View>
-          <View style={{height: 300}}/>
+          <View style={{height:300}}/>
         </ScrollView>
 
       </Container>

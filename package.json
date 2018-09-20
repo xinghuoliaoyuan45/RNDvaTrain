@@ -13,6 +13,7 @@
     "ky": "^0.2.0",
     "moment": "^2.22.2",
     "native-base": "^2.7.2",
+    "prop-types": "^15.6.2",
     "react": "16.4.1",
     "react-native": "0.56.0",
     "react-native-device-info": "^0.22.3",
