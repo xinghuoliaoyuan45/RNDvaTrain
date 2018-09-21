@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component,PureComponent} from 'react';
 import {View, TouchableOpacity, Image,Dimensions,Text} from 'react-native';
 import {Container, Header, Title, Content,  Separator,Body, Button, Left, Right, Root} from "native-base";
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -10,17 +10,8 @@ import colors from 'js/themes/colors';
 import PropTypes from 'prop-types';
 
 
-/**
- *  HeadBar
- *  contains: backIcon  &  Title  & RightIcon /RightLocalImage /RightRemoteImage/ RightText
- *  created by yang on 2017/10/18
- */
-export default class HeadBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    }
-  }
+
+export default class HeadBar extends PureComponent {
 
   static propTypes = {
 
@@ -86,7 +77,7 @@ export default class HeadBar extends Component {
   render() {
     return (
       <Header style={{backgroundColor: this.props.headBackgroundColor? this.props.headBackgroundColor : colors.appColor, borderBottomColor: '#f0f0f0'}}>
-        <Left>
+        <Left style={{flex:1}}>
           {/*左侧默认显示返回键*/}
           {(this.props.leftVisible!==false && !this.props.leftChildren) &&(
             <TouchableOpacity style={{paddingLeft:10,paddingRight:25,paddingTop:15,paddingBottom:15}}
@@ -100,10 +91,11 @@ export default class HeadBar extends Component {
           {/*左侧菜单栏扩展*/}
           {(this.props.leftVisible!==false && this.props.leftChildren && this.props.leftChildren)}
         </Left>
-        <Body>
+        <Body style={{flex:1, alignItems:'center'}}>
         {!this.props.titleChildren &&(
           <Title
             style={{
+
             fontSize: this.props.titleFontSize? this.props.titleFontSize :16,
             color: this.props.titleFontColor? this.props.titleFontColor :colors.textTitle}}>{this.props.titleText}</Title>
         )}
@@ -111,7 +103,7 @@ export default class HeadBar extends Component {
         {/*title菜单栏扩展*/}
         {(this.props.titleChildren && this.props.titleChildren)}
         </Body>
-        <Right>
+        <Right style={{flex:1}}>
           {/*专为名片模块定制*/}
           {this.props.rightVisible && !this.props.rightChildren && (
             <View>

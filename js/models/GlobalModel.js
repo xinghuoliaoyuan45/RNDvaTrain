@@ -62,9 +62,7 @@ export default {
   },
   effects: {
     * [LOGIN]({payload}, {call, put, select}) {
-      debugger
       const requestURL = API.login;
-      debugger
       const result = yield call(request, requestURL, {
         body: payload || {}
       });

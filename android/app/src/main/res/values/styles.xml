@@ -1,8 +1,22 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-    </style>
+  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <!-- Customize your theme here. -->
+  </style>
+
+
+  <!--用于ReactNative 界面-->
+  <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="android:windowTranslucentStatus">true</item>
+    <item name="android:fitsSystemWindows">true</item>
+  </style>
+
+  <!--用于Android界面-->
+  <style name="BaseActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="android:windowTranslucentStatus">true</item>
+    <item name="android:fitsSystemWindows">true</item>
+  </style>
+
+
 
 </resources>
