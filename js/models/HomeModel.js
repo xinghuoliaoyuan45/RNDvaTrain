@@ -29,7 +29,7 @@ export default {
              * put 发起action
              * select 选择某个namespace的state
              */
-            const name = yield call(fetchHomeName);
+            // const name = yield call(fetchHomeName);
             console.log(name);
             yield put({
                 type: SET_HOME_NAME,

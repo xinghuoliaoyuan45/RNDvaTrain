@@ -53,21 +53,18 @@ export default {
       console.log(payload.errorMsg);
       return state.set('error', payload.errorMsg)
     },
-    [LOGIN](state, {payload}) {
-      return state;
-    },
     [LOGIN_SUCCESS](state, {payload}) {
       return state
         .set('user', payload.user)
         .set('isLoggedIn', true)
         .set('tabIndex', '1');
     },
-
   },
   effects: {
     * [LOGIN]({payload}, {call, put, select}) {
-
+      debugger
       const requestURL = API.login;
+      debugger
       const result = yield call(request, requestURL, {
         body: payload || {}
       });
