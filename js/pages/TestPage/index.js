@@ -6,9 +6,9 @@ import {
   Image,
 } from 'react-native';
 import {Actions} from 'react-native-router-flux'
-import {Container, Content, Button, Header, Title, Body, Right, Left, Icon} from 'native-base'
 import HeadBar from 'js/components/HeadBar';
 import HeadStatusBar from "../../components/HeadStatusBar";
+import * as base from 'native-base'
 
 export default class Test extends Component {
   constructor(props) {
@@ -18,21 +18,19 @@ export default class Test extends Component {
 
   render() {
     return (
-      <Container>
+      <base.Container>
         <HeadStatusBar/>
         <HeadBar
           titleText={this.props.title}
           leftBackIconOnPress={Actions.pop}
           leftVisible={true}
           rightVisible={false}/>
-        <Content style={{justifyContent:'center'}}>
-          <View style={{alignSelf: 'center'}}>
-            <Text onPress={Actions.login}>点我跳转到登陆</Text>
+          <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>
+            <base.Button style={{alignSelf:'center'}}>
+            <base.Text onPress={Actions.home}>点我跳转到home</base.Text>
+            </base.Button>
           </View>
-        </Content>
-
-
-      </Container>
+      </base.Container>
     );
   }
 }

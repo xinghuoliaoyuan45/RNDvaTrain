@@ -1,10 +1,8 @@
 import React from 'react';
 import dva from './utils/Dva';
 
-import HomeModel from './models/HomeModel';
-import MeModel from './models/MeModel';
-import GlobalModel from './models/GlobalModel'
-import CommonModel from './models/CommonModel'
+
+import models from './models'
 //import { createLogger } from 'redux-logger';  //immutable 数据结构在 console里面是无法看到的 无效
 
 
@@ -13,7 +11,7 @@ import {COMMON_ERROR} from "./constants/ActionTypes";
 
 const app = dva({
   initialState: {},
-  models: [HomeModel,MeModel,GlobalModel,CommonModel],
+  models: models,
 
 });
 let store = app.getStore()

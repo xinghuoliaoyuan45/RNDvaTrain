@@ -5,16 +5,16 @@ namespace: test
 actions:
   - name: 获取部门树
     type: api
-    constant_name: GET_DEPT_TREE
+    functionName: getDeptTree
     urlName: getDeptTree
     urlPath: /api/v1/us/depts/stores/treelist
 
   - name: 登录
     type: api
-    constant_name: GET_MESSAGE
+    functionName: getMessage
     urlName: login
     urlPath: /api/v1/us/users/login
 
   - name: 保存登陆表单
     type: single
-    constant_name: SAVE_LOGIN_FORM
+    functionName: saveLoginForm

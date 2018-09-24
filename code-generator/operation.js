@@ -28,7 +28,6 @@ function interpolateTemplate(config, templateSource) {
  * @returns {*}
  */
 function saveSource(path, fileName, source) {
-  console.log(">>>>>>>>>>>>>path"+path+"fileName"+fileName,"source"+source)
   let isHave = false
   if (fs.existsSync(path + fileName)) {
     console.log('文件已存在！')
@@ -36,7 +35,9 @@ function saveSource(path, fileName, source) {
   }
   mkdirp(path)
   return new Promise((resolve, reject) => {
-    console.log(isHave && console.log('提示： 文件已经存在将会覆盖之前的'+fileName));
+    if(isHave){
+      console.log('提示： 文件已经存在将会覆盖之前的'+fileName)
+    }
     console.log("写入文件>>>>>>"+ path)
     fs.writeFile(path+fileName, source, function (err) {
       if (err) {
@@ -91,6 +92,7 @@ function operation(settings){
     loadTemplate()
       .then(template => {
         let source = interpolateTemplate(settings, template);
+        
         let filename = settings.filename;
         return saveSource(outPutDir,filename, source);
       })

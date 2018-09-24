@@ -1,35 +1,21 @@
-// {
-//   filename:"testModel"
-//   "namespace": "test",
-//   "actions": [   {
-//   "name": "保存登陆表单",
-//   "type": "single",
-//   "method_base": "saveLoginForm",
-//   "constant_name": "SAVE_LOGIN_FORM"
-// }, {
-//   "name": "获取登录数据",
-//   "type": "api",
-//   "method_base": "getMessage",
-//   "constant_name": "GET_MESSAGE"
-// }]
-// }
-//--------------------
-//复制到 config/api文件 里面
 
+//--------------------
+//下面的内容复制到 config/api文件 里面
 {{~ it.actions:value}}
-{{? value.type=='api'}}
-//{{=value.name}}
+{{? value.type=='api'}}//{{=value.name}}
 {{=value.urlName}}: 'server + {{=value.urlPath}}'{{?}}{{~}}
 
 //-----------------------------
+//下面的内容复制到 constants/ActionTypes文件 里面
+//（用 '> '替代 '/'是因为dva会认为没必要写namespace但是我认为在ActionTypes文件还是要区分，便于阅读代码
+{{~ it.actions:value}}
+//{{=value.name}}
+{{? value.type=='api'}}export const {{=value.functionName}} = '{{=it.namespace}}>{{=value.constantName}}'
+export const {{=value.functionName}}Success = '{{=it.namespace}}>{{=value.constantName}}_SUCCESS'
+{{?? value.type=='single'}}export const {{=value.functionName}} = '{{=it.namespace}}>{{=value.constantName}}'
+{{?}}{{~}}
 
-
-
-
-
-
-
-//--------------------------
+//下面的内容会写到 output文件夹 名字为filename --------------------------
 import {API} from '../config/api'
 import request from 'js/utils/request';
 import {Toast} from 'antd-mobile'
@@ -37,37 +23,39 @@ import {createAction} from "../utils";
 import Immutable from 'immutable';
 
 import{
-  {{~ it.actions:value}}{{=value.constant_name}},{{~}}
+  {{~ it.actions:value}}{{? value.type=='api'}}{{=value.functionName}},//{{=value.name}}
+  {{=value.functionName}}Success,//{{=value.name}}成功后
+  {{?? value.type=='single'}}{{=value.functionName}}//{{=value.name}}{{?}}{{~}}
   }  from '../constants/ActionTypes';
 
 export default {
   namespace: '{{=it.namespace}}',
   state: Immutable.fromJS({
-      data:{}
+      a:2
   }),
 reducers: {
   {{~ it.actions:value}}{{? value.type=='single'}}/** {{=value.name}}*/
-  [{{=value.constant_name}}](state, { payload }){
-      return { ...state, a: '1' };
+  [{{=value.functionName}}](state, { payload }){
+        return state.set('a',1);
     },
   {{?? value.type=='api'}}/** {{=value.name}}*/
-  [{{=value.constant_name+'_SUCCESS'}}](state, { payload }){
-          return { ...state, a: '1' };
+  [{{=value.functionName+'Success'}}](state, { payload }){
+          return state.set('a',1);
         },
   {{??}}/** {{=value.name}} */
-  [{{=value.constant_name}}](state, { payload }){
-             return { ...state, a: '1' };
+  [{{=value.functionName}}](state, { payload }){
+         return state.set('a',1);
          },
    {{?}}{{~}}},
 effects: {
  {{~ it.actions:value}}{{? value.type=='api'}}
-  * [{{=value.constant_name}}]({payload}, {call, put, select}){
-      const requestURL = API.{{= value.constant_name}};
+  * [{{=value.functionName}}]({payload}, {call, put, select}){
+      const requestURL = API.{{= value.functionName}};
        const result = yield call(request, requestURL, {
           body: payload || {}
        });
        if (result.success) {
-          yield put(createAction(`${{{=value.constant_name+'_SUCCESS'}}}`)(result.data));
+          yield put(createAction(`${{{=value.functionName+'Success'}}}`)(result.data));
         }else{
          yield put(createAction(`${COMMON_ERROR}`)(result));
       }

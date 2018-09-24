@@ -50,8 +50,6 @@ class Login extends Component {
 
     this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
     });
-    this.props.dispatch(createAction(`global/${TEST_TO_REDUCER}`)({a:'马骁尧'}))
-
   }
 
   /**滚动到指定元素*/

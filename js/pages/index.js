@@ -23,7 +23,7 @@ import {
 
 import Login from './LoginPage'
 import Home from './HomePage'
-import TestPage from './TestPage'
+import Test from './TestPage'
 
 
 const onBackPress = () => {
@@ -48,15 +48,14 @@ const onBackPress = () => {
 
 export const Pages = () => (
   <Router backAndroidHandler={onBackPress}>
-    <Scene
-      hideNavBar
-      transitionConfig={() => ({screenInterpolator: CardStackStyleInterpolator.forHorizontal})}
-    >
-      <Scene  component={Login} key="login"/>
-      <Scene  component={Home} key="home"/>
-      <Scene  component={TestPage} key={'test'}/>
-
-    </Scene>
+  <Modal
+   hideNavBar
+   transitionConfig={() => ({screenInterpolator: CardStackStyleInterpolator.forHorizontal})}
+ >
+    <Scene  component={Login} key="login"/>
+    <Scene  component={Home} key="home"/>
+    <Scene  component={Test} key="Test"/>
+    </Modal>
   </Router>
 );
 

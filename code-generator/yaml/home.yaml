@@ -1,0 +1,7 @@
+filename: HomeModels.js
+namespace: Home
+actions: 
+  - name: 底部栏切换
+    type: single
+    functionName: changeBottomTab
+

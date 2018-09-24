@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react'
 import SplashScreen from "react-native-splash-screen";
-import {AsyncStorage} from 'react-native';
+import {AsyncStorage, Dimensions} from 'react-native';
 import {Pages} from "./pages";
 import Storage from 'react-native-storage';
 
@@ -37,7 +37,8 @@ let initGlobalStorage = () => {
 }
 
 let initGlobalSet =()=>{
-
+  GLOBAL.deviceWidth = Dimensions.get('window').width;
+  GLOBAL.deviceHeight = Dimensions.get('window').height;
 }
 
 

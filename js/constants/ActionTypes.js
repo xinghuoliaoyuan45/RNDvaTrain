@@ -24,9 +24,10 @@ export const REGISTER_SUCCESS = 'poly/App/REGISTER_SUCCESS';
 export const REGISTER_ERROR = 'poly/App/REGISTER_ERROR'
 
 /* 保存登陆表单 */
-export const SAVE_LOGIN_FORM = 'global/SAVE_LOGIN_FORM';
+export const SAVE_LOGIN_FORM = 'global>SAVE_LOGIN_FORM';
 
-
+//底部栏切换
+export const changeBottomTab =  'tab>CHANGE_BOTTOM_TAB'
 
 
 
