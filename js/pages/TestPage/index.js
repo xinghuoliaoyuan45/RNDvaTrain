@@ -26,8 +26,8 @@ export default class Test extends Component {
           leftVisible={true}
           rightVisible={false}/>
           <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>
-            <base.Button style={{alignSelf:'center'}}>
-            <base.Text onPress={Actions.home}>点我跳转到home</base.Text>
+            <base.Button onPress={Actions.home} style={{alignSelf:'center'}}>
+            <base.Text >点我跳转到home</base.Text>
             </base.Button>
           </View>
       </base.Container>

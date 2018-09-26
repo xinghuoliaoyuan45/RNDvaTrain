@@ -27,7 +27,7 @@ export const REGISTER_ERROR = 'poly/App/REGISTER_ERROR'
 export const SAVE_LOGIN_FORM = 'global>SAVE_LOGIN_FORM';
 
 //底部栏切换
-export const changeBottomTab =  'tab>CHANGE_BOTTOM_TAB'
+export const CHANGE_BOTTOM_TAB =  'tab>CHANGE_BOTTOM_TAB'
 
 
 

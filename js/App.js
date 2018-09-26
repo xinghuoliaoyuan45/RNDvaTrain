@@ -7,7 +7,6 @@ import models from './models'
 
 
 import Root from "./Root";
-import {COMMON_ERROR} from "./constants/ActionTypes";
 
 const app = dva({
   initialState: {},

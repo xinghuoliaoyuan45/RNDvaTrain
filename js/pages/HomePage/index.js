@@ -12,7 +12,7 @@ import ScrollableTabView from 'react-native-scrollable-tab-view';
 import ImageTab from 'js/components/ImageTab'
 import * as base from 'native-base'
 import {
-  changeBottomTab,//底部栏切换
+  CHANGE_BOTTOM_TAB,//底部栏切换
   TEST_TO_REDUCER
 } from 'js/constants/ActionTypes';
 import {createAction} from "js/utils";
@@ -84,7 +84,7 @@ class home extends Component {
     // this.setState({tabSwitchIndex: i});
     Keyboard.dismiss();
     this.props.dispatch(createAction(`global/${TEST_TO_REDUCER}`)({a: '马骁尧'}))
-    this.props.dispatch(createAction(`tab/${changeBottomTab}`)((i + 1)))
+    this.props.dispatch(createAction(`tab/${CHANGE_BOTTOM_TAB}`)((i + 1)))
   };
 
   render() {
@@ -92,10 +92,10 @@ class home extends Component {
       <base.Container>
         <HeadStatusBar/>
         <View style={{flex: 1,  justifyContent: 'center'}}>
-          <base.Button style={{alignSelf: 'center'}}>
-            <base.Text onPress={() => {
+          <base.Button onPress={() => {
               Actions.Test({title:'TestTitle'})
-            }}>
+            }} style={{alignSelf: 'center'}}>
+            <base.Text>
               跳转到Test 页面
             </base.Text>
           </base.Button>

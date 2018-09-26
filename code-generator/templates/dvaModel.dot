@@ -12,6 +12,7 @@
 //{{=value.name}}
 {{? value.type=='api'}}export const {{=value.functionName}} = '{{=it.namespace}}>{{=value.constantName}}'
 export const {{=value.functionName}}Success = '{{=it.namespace}}>{{=value.constantName}}_SUCCESS'
+export const {{=value.functionName}}Error = '{{=it.namespace}}>{{=value.constantName}}_ERROR'
 {{?? value.type=='single'}}export const {{=value.functionName}} = '{{=it.namespace}}>{{=value.constantName}}'
 {{?}}{{~}}
 
@@ -25,6 +26,7 @@ import Immutable from 'immutable';
 import{
   {{~ it.actions:value}}{{? value.type=='api'}}{{=value.functionName}},//{{=value.name}}
   {{=value.functionName}}Success,//{{=value.name}}成功后
+  {{=value.functionName}}Error,//{{=value.name}}失败后
   {{?? value.type=='single'}}{{=value.functionName}}//{{=value.name}}{{?}}{{~}}
   }  from '../constants/ActionTypes';
 
@@ -41,6 +43,9 @@ reducers: {
   {{?? value.type=='api'}}/** {{=value.name}}*/
   [{{=value.functionName+'Success'}}](state, { payload }){
           return state.set('a',1);
+        },
+  [{{=value.functionName+'Error'}}](state, { payload }){
+            return state.set('a',1);
         },
   {{??}}/** {{=value.name}} */
   [{{=value.functionName}}](state, { payload }){

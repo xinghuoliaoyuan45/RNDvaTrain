@@ -5,9 +5,9 @@ import {Toast} from 'antd-mobile'
 import {createAction} from "../utils";
 import Immutable from 'immutable';
 
-import{
-  changeBottomTab,//底部栏切换
-  }  from '../constants/ActionTypes';
+import {
+  CHANGE_BOTTOM_TAB,//底部栏切换
+} from '../constants/ActionTypes';
 
 export default {
   namespace: 'tab',
@@ -16,7 +16,7 @@ export default {
   }),
 reducers: {
   /** 底部栏切换*/
-  [changeBottomTab](state, { payload }){
+  [CHANGE_BOTTOM_TAB](state, { payload }){
         return state.set('tabIndex',payload);
     },
   },

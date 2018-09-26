@@ -1,11 +1,11 @@
 
 
-filename: TestModels.js
+filename: lxxModels.js
 namespace: test
 actions:
   - name: 获取部门树
     type: api
-    functionName: getDeptTree
+    functionName: getDeptTreeMa
     urlName: getDeptTree
     urlPath: /api/v1/us/depts/stores/treelist
 
