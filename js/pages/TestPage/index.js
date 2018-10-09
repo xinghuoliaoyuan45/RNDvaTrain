@@ -29,6 +29,9 @@ export default class Test extends Component {
             <base.Button onPress={Actions.home} style={{alignSelf:'center'}}>
             <base.Text >点我跳转到home</base.Text>
             </base.Button>
+            <base.Button onPress={Actions.login} style={{alignSelf:'center'}}>
+            <base.Text >点我跳转到login</base.Text>
+            </base.Button>
           </View>
       </base.Container>
     );

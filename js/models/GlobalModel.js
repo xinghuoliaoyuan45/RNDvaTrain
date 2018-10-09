@@ -18,12 +18,7 @@ export default {
   state: Immutable.fromJS({
     error: false,
     user: {},
-    drawerState: 'closed',
-    drawerDisabled: true,
     tabIndex: '1',
-    /**用户字典**/
-    dictList: [],
-    allDictMap: {},
     loginForm: {
       doingAutoLogin: false, //是否正在登录
       showLoginUI: false, //是否显示登录UI
@@ -55,7 +50,7 @@ export default {
     },
     [LOGIN_SUCCESS](state, {payload}) {
       return state
-        .set('user', payload.user)
+        .set('user', payload)
         .set('isLoggedIn', true)
         .set('tabIndex', '1');
     },
